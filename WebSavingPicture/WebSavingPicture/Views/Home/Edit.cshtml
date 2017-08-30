@@ -1,0 +1,81 @@
+﻿@model WebSavingPicture.Models.Picture
+
+@{
+    ViewBag.Title = "Edit";
+     
+}
+
+<div class="row">
+    <form id="form1" action="/Home/Edit" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="PictureId" value="@Model.PictureId"/>
+        <label for="textName" class="control-label col-md-2">Picture name</label>
+        <div class="col-md-10 form-group">
+            <input id="textName" type="text" name="PictureName" class="form-control" data-val="true" data-val-length="The field Picture name must be a string with a maximum length of 50." data-val-length-max="50" data-val-required="The Picture name field is required." value="@Model.PictureName"/>
+            <span class="field-validation-valid text-danger" data-valmsg-for="PictureName" data-valmsg-replace="true"></span>
+        </div>
+        <label for="textDescription" class="control-label col-md-2">Description</label>
+        <div class="col-md-10 form-group">
+            <textarea id="TextDescription" rows="5" cols="25" name="PictureDescription" class="form-control">@Model.PictureDescription</textarea>
+        </div>
+        <input type="hidden" name="PictureCreationTime" value="@DateTime.Now" />
+        <label for="File1" class="control-label col-md-2">Choose a picture</label>
+        <div class="col-md-10 form-group">
+            <input id="File1" type="file" name="file" class="form-control" />
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <img id="img1" src="@($"/Home/ReadPicture?id={Model.PictureId}")" class="pictureFormat" />
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button id="btnSave" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div>
+    <a href="/Home/Index">Back to home page</a>
+</div>
+@section Styles{
+    <style>
+        .pictureFormat {
+            width: 200px;
+            height: 150px;
+            border: 1px solid red;
+        }
+    </style>
+
+}
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+           $("#File1").change(function myfunction() {
+               var files = $("#File1").get(0).files;
+               if (files.length > 0 && files[0].type.match(/image.*/)) {
+                   var file = files[0];
+                   var reader = new FileReader();
+                   reader.readAsDataURL(file);
+                   reader.onload = function () {
+                       $("#img1").attr("src", reader.result);
+                   }
+               }
+
+           });
+
+           $("#btnSave").bind("click", function () {
+               if ($("#img1").attr("src") == "")
+               {
+                   alert("choose a picture");
+                   return;
+               }
+
+               $("#form1").submit();
+           });
+
+    </script>
+}

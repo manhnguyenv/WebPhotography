@@ -1,0 +1,47 @@
+﻿@model WebSavingPicture.Models.Picture
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<div class="row">
+    <form id="form1" action="/Home/Delete" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+      
+            <input id="textName" type="hidden" name="id" class="form-control" value="@Model.PictureId"/>
+      
+           
+        <p>
+            Name: @Model.PictureName <br />
+            Description: @Model.PictureDescription <br />
+            Type: @Model.PictureType<br />
+            CreationTime: @Model.PictureCreationTime<br />
+
+        </p>
+
+        <br /><br />      
+        <img id="img1" src="@($"/Home/ReadPicture?id={Model.PictureId}")" class="pictureFormat" /><br />
+
+        Are you sure you wont to delete this picture? <br />
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button id="btnSave" type="submit" class="btn btn-primary">Delete</button>
+                <a href="/Home/Index">Back</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div>
+</div>
+@section Styles{
+    <style>
+        .pictureFormat {
+            width: 200px;
+            height: 150px;
+            border: 1px solid red;
+        }
+    </style>
+
+}

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebSavingPicture.Models.Picture>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Pictures</h1>
+</div>
+<a href="/Home/CreatePicture">Add new picture</a>
+<div class="row">
+    @if (Model != null)
+    {
+        foreach (var picture in Model)
+        {
+            <div class="pictureFormat">
+                @picture.PictureName
+                <img src="@($"/Home/ReadPicture?id={picture.PictureId}")" class="picture"/>
+                <a href="@($"/Home/Edit?id={picture.PictureId}")">Edit</a> &nbsp;<a href="@($"/Home/Details?id={picture.PictureId}")">Details</a>
+                &nbsp; <a href="@($"/Home/Delete?id={picture.PictureId}")">Delete</a>
+            </div>
+        }
+    }
+</div>
+
+
+@section Styles{
+
+    <style>
+        .pictureFormat {
+            margin: 5px;
+            float: left;
+            width:250px;
+            height:200px;
+        }
+        .picture {
+            width: 230px;
+            height: 150px;
+        }
+    </style>
+
+}

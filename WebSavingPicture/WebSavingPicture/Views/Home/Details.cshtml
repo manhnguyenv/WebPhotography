@@ -1,0 +1,19 @@
+﻿@model WebSavingPicture.Models.Picture
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+ <div class="row">
+  <p>Name: @Model.PictureName <br />
+     Description: @Model.PictureDescription <br />
+     Type: @Model.PictureType<br />
+     CreationTime: @Model.PictureCreationTime<br />
+     
+     </p>
+
+     <br />
+     <a href="/Home/Index">Back</a>
+ </div>
